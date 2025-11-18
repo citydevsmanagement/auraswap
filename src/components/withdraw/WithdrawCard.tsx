@@ -78,8 +78,8 @@ export function WithdrawCard() {
   }
 
   return (
-    <Card className="glass card-shadow p-6 max-w-md w-full">
-      <h2 className="text-2xl font-bold mb-6">Withdraw Tokens</h2>
+    <Card className="glass card-shadow p-4 sm:p-6 max-w-md w-full">
+      <h2 className="text-xl sm:text-2xl font-bold mb-6">Withdraw Tokens</h2>
       
       <div className="space-y-6">
         <div className="space-y-2">

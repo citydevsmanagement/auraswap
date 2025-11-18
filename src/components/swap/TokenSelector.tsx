@@ -1,12 +1,8 @@
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
 import { ChevronDown } from 'lucide-react';
 import { Token } from '@/lib/tokens';
+import { TokenSelectorModal } from './TokenSelectorModal';
 
 interface TokenSelectorProps {
   selectedToken: Token | null;
@@ -15,36 +11,41 @@ interface TokenSelectorProps {
 }
 
 export function TokenSelector({ selectedToken, onSelect, availableTokens }: TokenSelectorProps) {
+  const [open, setOpen] = useState(false);
+
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="outline" className="glass">
-          {selectedToken ? (
-            <>
-              <span className="font-semibold">{selectedToken.symbol}</span>
-              <ChevronDown className="ml-2 h-4 w-4" />
-            </>
-          ) : (
-            <>
-              Select Token
-              <ChevronDown className="ml-2 h-4 w-4" />
-            </>
-          )}
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="glass">
-        {availableTokens.map((token) => (
-          <DropdownMenuItem
-            key={token.address}
-            onClick={() => onSelect(token)}
-          >
-            <div className="flex flex-col">
-              <span className="font-semibold">{token.symbol}</span>
-              <span className="text-xs text-muted-foreground">{token.name}</span>
-            </div>
-          </DropdownMenuItem>
-        ))}
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <>
+      <Button 
+        variant="outline" 
+        className="glass w-full justify-between"
+        onClick={() => setOpen(true)}
+      >
+        {selectedToken ? (
+          <div className="flex items-center gap-2">
+            <img
+              src={selectedToken.logoURI}
+              alt={selectedToken.symbol}
+              className="w-5 h-5 rounded-full"
+              loading="lazy"
+              onError={(e) => {
+                e.currentTarget.src = 'https://via.placeholder.com/20?text=' + selectedToken.symbol.charAt(0);
+              }}
+            />
+            <span className="font-semibold">{selectedToken.symbol}</span>
+          </div>
+        ) : (
+          <span>Select Token</span>
+        )}
+        <ChevronDown className="h-4 w-4" />
+      </Button>
+
+      <TokenSelectorModal
+        open={open}
+        onOpenChange={setOpen}
+        onSelect={onSelect}
+        tokens={availableTokens}
+        selectedToken={selectedToken}
+      />
+    </>
   );
 }

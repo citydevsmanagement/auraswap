@@ -1,7 +1,7 @@
 import { http } from 'viem';
 import { mainnet, polygon, bsc, arbitrum, base } from 'viem/chains';
 import { createConfig } from 'wagmi';
-import { coinbaseWallet, walletConnect, injected } from 'wagmi/connectors';
+import { baseAccount, walletConnect, injected } from 'wagmi/connectors';
 
 const projectId = import.meta.env.VITE_WALLETCONNECT_PROJECT_ID || 'b96556726499ce5777cddeafd41b3f1b';
 
@@ -9,10 +9,9 @@ export const wagmiConfig = createConfig({
   chains: [mainnet, polygon, bsc, arbitrum, base],
   connectors: [
     injected({ shimDisconnect: true }),
-    coinbaseWallet({
+    baseAccount({
       appName: 'AuraSwap',
-      preference: 'smartWalletOnly',
-      version: '4',
+      appLogoUrl: typeof window !== 'undefined' ? `${window.location.origin}/placeholder.svg` : 'https://auraswap.lovable.app/placeholder.svg',
     }),
     walletConnect({ 
       projectId,
@@ -20,7 +19,7 @@ export const wagmiConfig = createConfig({
       metadata: {
         name: 'AuraSwap',
         description: 'Decentralized Token Swap Platform',
-        url: typeof window !== 'undefined' ? window.location.origin : 'https://auraswap.app',
+        url: typeof window !== 'undefined' ? window.location.origin : 'https://auraswap.lovable.app',
         icons: ['https://avatars.githubusercontent.com/u/37784886'],
       },
     }),

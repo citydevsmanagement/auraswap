@@ -11,7 +11,7 @@ export const wagmiConfig = createConfig({
     injected({ shimDisconnect: true }),
     baseAccount({
       appName: 'AuraSwap',
-      appLogoUrl: typeof window !== 'undefined' ? `${window.location.origin}/placeholder.svg` : 'https://auraswap.lovable.app/placeholder.svg',
+      appLogoUrl: typeof window !== 'undefined' ? `${window.location.origin}/robots.txt` : undefined,
     }),
     walletConnect({ 
       projectId,
@@ -19,7 +19,7 @@ export const wagmiConfig = createConfig({
       metadata: {
         name: 'AuraSwap',
         description: 'Decentralized Token Swap Platform',
-        url: typeof window !== 'undefined' ? window.location.origin : 'https://auraswap.lovable.app',
+        url: typeof window !== 'undefined' ? window.location.origin : undefined,
         icons: ['https://avatars.githubusercontent.com/u/37784886'],
       },
     }),

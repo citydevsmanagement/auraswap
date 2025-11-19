@@ -11,7 +11,8 @@ export const wagmiConfig = createConfig({
     injected({ shimDisconnect: true }),
     coinbaseWallet({
       appName: 'AuraSwap',
-      preference: 'all',
+      preference: 'smartWalletOnly',
+      version: '4',
     }),
     walletConnect({ 
       projectId,

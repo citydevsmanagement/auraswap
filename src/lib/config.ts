@@ -19,7 +19,7 @@ export const wagmiConfig = createConfig({
     coinbaseWallet({
       appName: 'AuraSwap',
       appLogoUrl: `${getCallbackUrl()}/placeholder.svg`,
-      preference: 'all',
+      preference: 'eoaOnly',
     }),
     walletConnect({ 
       projectId,

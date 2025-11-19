@@ -1,7 +1,7 @@
 import { http } from 'viem';
 import { mainnet, polygon, bsc, arbitrum, base } from 'viem/chains';
 import { createConfig } from 'wagmi';
-import { baseAccount, walletConnect, injected } from 'wagmi/connectors';
+import { coinbaseWallet, walletConnect, injected } from 'wagmi/connectors';
 
 const projectId = import.meta.env.VITE_WALLETCONNECT_PROJECT_ID || 'b96556726499ce5777cddeafd41b3f1b';
 
@@ -16,10 +16,10 @@ export const wagmiConfig = createConfig({
   chains: [mainnet, polygon, bsc, arbitrum, base],
   connectors: [
     injected({ shimDisconnect: true }),
-    baseAccount({
+    coinbaseWallet({
       appName: 'AuraSwap',
       appLogoUrl: `${getCallbackUrl()}/placeholder.svg`,
-      appURI: getCallbackUrl(),
+      preference: 'all',
     }),
     walletConnect({ 
       projectId,

@@ -20,6 +20,7 @@ export const wagmiConfig = createConfig({
       appName: 'AuraSwap',
       appLogoUrl: `${getCallbackUrl()}/placeholder.svg`,
       preference: 'eoaOnly',
+      version: '4',
     }),
     walletConnect({ 
       projectId,

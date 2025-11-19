@@ -8,15 +8,21 @@ const projectId = import.meta.env.VITE_WALLETCONNECT_PROJECT_ID || 'b96556726499
 export const wagmiConfig = createConfig({
   chains: [mainnet, polygon, bsc, arbitrum, base],
   connectors: [
+    injected({ shimDisconnect: true }),
     coinbaseWallet({
       appName: 'AuraSwap',
-      appLogoUrl: 'https://example.com/logo.png',
+      preference: 'all',
     }),
     walletConnect({ 
       projectId,
       showQrModal: true,
+      metadata: {
+        name: 'AuraSwap',
+        description: 'Decentralized Token Swap Platform',
+        url: typeof window !== 'undefined' ? window.location.origin : 'https://auraswap.app',
+        icons: ['https://avatars.githubusercontent.com/u/37784886'],
+      },
     }),
-    injected(),
   ],
   transports: {
     [mainnet.id]: http(),

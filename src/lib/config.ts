@@ -5,13 +5,21 @@ import { baseAccount, walletConnect, injected } from 'wagmi/connectors';
 
 const projectId = import.meta.env.VITE_WALLETCONNECT_PROJECT_ID || 'b96556726499ce5777cddeafd41b3f1b';
 
+const getCallbackUrl = () => {
+  if (typeof window !== 'undefined') {
+    return window.location.origin;
+  }
+  return 'https://auraswap.lovable.app';
+};
+
 export const wagmiConfig = createConfig({
   chains: [mainnet, polygon, bsc, arbitrum, base],
   connectors: [
     injected({ shimDisconnect: true }),
     baseAccount({
       appName: 'AuraSwap',
-      appLogoUrl: typeof window !== 'undefined' ? `${window.location.origin}/robots.txt` : undefined,
+      appLogoUrl: `${getCallbackUrl()}/placeholder.svg`,
+      appURI: getCallbackUrl(),
     }),
     walletConnect({ 
       projectId,
@@ -19,7 +27,7 @@ export const wagmiConfig = createConfig({
       metadata: {
         name: 'AuraSwap',
         description: 'Decentralized Token Swap Platform',
-        url: typeof window !== 'undefined' ? window.location.origin : undefined,
+        url: getCallbackUrl(),
         icons: ['https://avatars.githubusercontent.com/u/37784886'],
       },
     }),
